@@ -1,9 +1,8 @@
-﻿using BepInEx;
+﻿using System;
+using BepInEx;
 using BepInEx.Logging;
+using CustomBoomboxTracks.Managers;
 using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.IO;
 
 namespace CustomBoomboxTracks
 {
@@ -20,10 +19,15 @@ namespace CustomBoomboxTracks
         {
             Instance = this;
 
+            LogInfo("Loading...");
+
+            AudioManager.GenerateFolders();
             Configuration.Config.Init();
 
             var harmony = new Harmony(GUID);
             harmony.PatchAll();
+
+            LogInfo("Loading Complete!");
         }
 
 
