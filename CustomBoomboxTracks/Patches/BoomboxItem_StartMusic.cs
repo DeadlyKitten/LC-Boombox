@@ -7,7 +7,7 @@ namespace CustomBoomboxTracks.Patches
     {
         static void Postfix(BoomboxItem __instance, bool startMusic)
         {
-            if (startMusic) BoomboxPlugin.LogInfo($"Playing {__instance.boomboxAudio.clip}");
+            if (startMusic) BoomboxPlugin.LogInfo($"Playing {__instance.boomboxAudio.clip.name}");
         }
     }
 }
