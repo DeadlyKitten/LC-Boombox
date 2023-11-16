@@ -14,9 +14,13 @@ namespace CustomBoomboxTracks.Managers
 {
     internal static class AudioManager
     {
+        public static event Action OnAllSongsLoaded;
+        public static bool FinishedLoading => finishedLoading;
+
         static string[] allSongPaths;
         static List<AudioClip> clips = new List<AudioClip>();
         static bool firstRun = true;
+        static bool finishedLoading = false;
 
         static readonly string directory = Path.Combine(Paths.BepInExRootPath, "Custom Songs", "Boombox Music");
 
@@ -32,10 +36,15 @@ namespace CustomBoomboxTracks.Managers
                 allSongPaths = Directory.GetFiles(directory);
 
                 BoomboxPlugin.LogInfo("Preparing to load AudioClips...");
+
+                var coroutines = new List<Coroutine>();
                 foreach (var track in allSongPaths)
                 {
-                    SharedCoroutineStarter.StartCoroutine(LoadAudioClip(track));
+                    var coroutine = SharedCoroutineStarter.StartCoroutine(LoadAudioClip(track));
+                    coroutines.Add(coroutine);
                 }
+
+                SharedCoroutineStarter.StartCoroutine(WaitForAllClips(coroutines));
             }
         }
 
@@ -80,6 +89,18 @@ namespace CustomBoomboxTracks.Managers
 
             // Failed to load.
             BoomboxPlugin.LogError($"Failed to load clip at: {filePath}\nThis might be due to an mismatch between the audio codec and the file extension!");
+        }
+
+        private static IEnumerator WaitForAllClips(List<Coroutine> coroutines)
+        {
+            foreach(var coroutine in coroutines)
+            {
+                yield return coroutine;
+            }
+
+            finishedLoading = true;
+            OnAllSongsLoaded?.Invoke();
+            OnAllSongsLoaded = null;
         }
 
         public static void ApplyClips(BoomboxItem __instance)
