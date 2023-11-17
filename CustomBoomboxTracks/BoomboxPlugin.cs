@@ -11,7 +11,7 @@ namespace CustomBoomboxTracks
     {
         private const string GUID = "com.steven.lethalcompany.boomboxmusic";
         private const string NAME = "Custom Boombox Music";
-        private const string VERSION = "1.1.0";
+        private const string VERSION = "1.2.0";
 
         private static BoomboxPlugin Instance;
 
@@ -29,7 +29,6 @@ namespace CustomBoomboxTracks
 
             LogInfo("Loading Complete!");
         }
-
 
         #region logging
         internal static void LogDebug(string message) => Instance.Log(message, LogLevel.Debug);
