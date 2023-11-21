@@ -16,7 +16,7 @@ namespace CustomBoomboxTracks.Patches
 
             for (int i = 0; i < patchedInstructions.Count; i++)
             {
-                if (skippedFirstCall)
+                if (!skippedFirstCall)
                 {
                     if (patchedInstructions[i].opcode == OpCodes.Call)
                         skippedFirstCall = true;
