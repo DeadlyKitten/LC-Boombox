@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using BepInEx;
 using CustomBoomboxTracks.Configuration;
 using CustomBoomboxTracks.Utilities;
@@ -34,6 +33,12 @@ namespace CustomBoomboxTracks.Managers
             {
                 firstRun = false;
                 allSongPaths = Directory.GetFiles(directory);
+
+                if (allSongPaths.Length == 0)
+                {
+                    BoomboxPlugin.LogWarning("No songs found!");
+                    return;
+                }
 
                 BoomboxPlugin.LogInfo("Preparing to load AudioClips...");
 
