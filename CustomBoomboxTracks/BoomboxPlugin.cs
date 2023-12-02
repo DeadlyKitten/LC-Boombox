@@ -11,7 +11,7 @@ namespace CustomBoomboxTracks
     {
         private const string GUID = "com.steven.lethalcompany.boomboxmusic";
         private const string NAME = "Custom Boombox Music";
-        private const string VERSION = "1.3.1";
+        private const string VERSION = "1.4.0";
 
         private static BoomboxPlugin Instance;
 
