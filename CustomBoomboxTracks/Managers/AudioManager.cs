@@ -25,7 +25,11 @@ namespace CustomBoomboxTracks.Managers
 
         public static bool HasNoSongs => allSongPaths.Length == 0;
 
-        public static void GenerateFolders() => Directory.CreateDirectory(directory);
+        public static void GenerateFolders()
+        {
+            Directory.CreateDirectory(directory);
+            BoomboxPlugin.LogInfo($"Created directory at {directory}");
+        }
 
         public static void Load()
         {
@@ -102,6 +106,8 @@ namespace CustomBoomboxTracks.Managers
             {
                 yield return coroutine;
             }
+
+            clips.Sort((first, second) => first.name.CompareTo(second.name));
 
             finishedLoading = true;
             OnAllSongsLoaded?.Invoke();
