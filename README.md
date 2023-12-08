@@ -20,3 +20,25 @@ Place boombox tracks into `BepInEx/Custom Songs/Boombox Music`.
 - WAV
 - OGG
 - MP3
+
+
+## 🔧 Developing
+
+Clone the project, then create a file in the root of the project directory named:
+
+`CustomBoomboxTracks.csproj.user`
+
+Here you need to set the `GameDir` property to match your install directory.
+
+Example:
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <!-- Set "YOUR OWN" game folder here to resolve most of the dependency paths! -->
+    <GameDir>C:\Program Files (x86)\Steam\steamapps\common\Lethal Company</GameDir>
+  </PropertyGroup>
+</Project>
+```
+
+Now when you build the mod, it should resolve your references automatically, and the build event will copy the plugin into your `BepInEx\plugins` folder!
