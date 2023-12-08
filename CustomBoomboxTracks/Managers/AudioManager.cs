@@ -117,12 +117,15 @@ namespace CustomBoomboxTracks.Managers
         public static void ApplyClips(BoomboxItem __instance)
         {
             BoomboxPlugin.LogInfo($"Applying clips!");
+            AudioClip[] audioClips = clips.ToArray();
+            Array.Sort(audioClips, delegate (AudioClip clip1, AudioClip clip2) { return clip1.name.CompareTo(clip2.name); });
 
             if (Config.UseDefaultSongs)
                 __instance.musicAudios = __instance.musicAudios.Concat(clips).ToArray();
             else
-                __instance.musicAudios = clips.ToArray();
+                __instance.musicAudios = audioClips;
 
+            __instance.musicRandomizer = new System.Random(12345);
             BoomboxPlugin.LogInfo($"Total Clip Count: {__instance.musicAudios.Length}");
         }
 
