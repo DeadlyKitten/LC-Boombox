@@ -12,6 +12,8 @@ namespace CustomBoomboxTracks.Patches
                 AudioManager.ApplyClips(__instance);
             else
                 AudioManager.OnAllSongsLoaded += () => AudioManager.ApplyClips(__instance);
+
+            RandomSyncManager.AddBoombox(__instance);
         }
     }
 }
